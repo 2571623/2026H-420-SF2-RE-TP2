@@ -1,5 +1,6 @@
 from expression import Expression
-
+from operations import Multiplication
+import math
 
 class Sin(Expression):
     """Expression representant sin(u)."""
@@ -9,18 +10,27 @@ class Sin(Expression):
         self.u = u
 
     def evaluer(self, x: float) -> float:
-        return Cos(self.u.evaluer(x)) * self.u.evaluer(x)
+        return math.cos(self.u.evaluer(x)) * self.u.evaluer(x)
     
     def deriver(self) -> Expression:
-        return Sin(Cos(self.u.deriver(), self.u.deriver()))
+        return Sin(Multiplication(math.cos(self.u.deriver(), self.u.deriver())))
 
+#Question Prof est ce que possible de faire cos et sin sans math ?
 
 class Cos(Expression):
     """Expression representant cos(u)."""
 
     # Votre code ici (remplacer le "pass" par votre implementation)
-    pass
+    def __init__(self, u: Expression):
+        self.u = u
 
+    def evaluer(self, x: float) -> float:
+        return -math.sin(self.u.evaluer(x)) * self.u.evaluer(x)
+    
+    def deriver(self) -> Expression:
+        return Cos(Multiplication(-math.sin(self.u.deriver(), self.u.deriver())))
+
+# Question Prof comment faire négatif dans le cos et le sin ?
 
 class Exp(Expression):
     """Expression representant exp(u)."""
