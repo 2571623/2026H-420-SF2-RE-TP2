@@ -13,12 +13,10 @@ class Sin(Expression):
         return math.cos(self.u.evaluer(x)) * self.u.evaluer(x)
     
     def deriver(self) -> Expression:
-        return Sin(Multiplication(math.cos(self.u.deriver(), self.u.deriver())))
+        return Multiplication(Cos(self.u.deriver()), self.u.deriver())
     
     def __str__(self):
-        return Expression
-
-#Question Prof est ce que possible de faire cos et sin sans math ?
+        return f"sin({self.u})"
 
 class Cos(Expression):
     """Expression representant cos(u)."""
@@ -28,14 +26,13 @@ class Cos(Expression):
         self.u = u
 
     def evaluer(self, x: float) -> float:
-        return -math.sin(self.u.evaluer(x)) * self.u.evaluer(x)
+        return (math.sin(self.u.evaluer(x))* -1) * self.u.evaluer(x)
     
     def deriver(self) -> Expression:
-        return Cos(Multiplication(-math.sin(self.u.deriver(), self.u.deriver())))
+        return Multiplication(Multiplication(Sin(self.u.deriver()), -1), self.u.deriver())
 
     def __str__(self):
-        return Expression
-# Question Prof comment faire négatif dans le cos et le sin ?
+        return f"cos({self.u})"
 
 class Exp(Expression):
     """Expression representant exp(u)."""
@@ -48,7 +45,7 @@ class Exp(Expression):
         return math.exp(self.u.evaluer(x)) * self.u.evaluer(x)
     
     def deriver(self) -> Expression:
-        return Exp(Multiplication(math.exp(self.u.deriver(), self.u.deriver)))
+        return Multiplication(Exp(self.u.deriver()), self.u.deriver())
     
     def __str__(self):
-        return Expression
+        return f"exp({self.u})"

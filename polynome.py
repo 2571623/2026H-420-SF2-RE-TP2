@@ -14,21 +14,22 @@ class Polynome(Expression):
         return resultat
 
     def deriver(self) -> "Expression":
+        fct_deriver = []
         for i, a in enumerate(self.coefficients):
             if i == 0:
-                self.coefficients[i] = 0
+                continue
             else:
-                self.coefficients[i] = a * i
-        return Polynome(self.coefficients)
+                fct_deriver.append(a * i)
+        return Polynome(fct_deriver)
     
     def __str__(self) -> str:
-        fct_deriver = []
+        termes = []
         for i, a in enumerate(self.coefficients):
             if a != 0:
                 if i == 0:
-                    fct_deriver.append(f" + {a}")
+                    termes.append(f"{a}")
                 elif i == 1:
-                    fct_deriver.append(f" + {a}x")
+                    termes.append(f"{a}x")
                 else:
-                    fct_deriver.append(f" + {a}x^{i}")
-        return fct_deriver[-1:]
+                    termes.append(f"{a}x^{i}")
+        return " + ".join(termes).replace("+ -", "- ")
