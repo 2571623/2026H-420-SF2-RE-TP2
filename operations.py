@@ -31,7 +31,7 @@ class Multiplication(Expression):
         return self.u.evaluer(x) * self.v.evaluer(x)
     
     def deriver(self) -> "Expression":
-        return Multiplication(self.u.deriver(), self.v.deriver())
+        return Addition(Multiplication(self.u.deriver(), self.v), Multiplication(self.u, self.v.deriver()))
 
     def __str__(self) -> str:
         return f"({self.u} * {self.v})"

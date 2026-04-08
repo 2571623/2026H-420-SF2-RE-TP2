@@ -1,5 +1,6 @@
 from expression import Expression
 from operations import Multiplication
+from polynome import Polynome
 import math
 
 class Sin(Expression):
@@ -29,7 +30,7 @@ class Cos(Expression):
         return math.cos(self.u.evaluer(x))
     
     def deriver(self) -> Expression:
-        return Multiplication(Multiplication(Sin(self.u.deriver()), -1), self.u.deriver())
+        return Multiplication(Multiplication(Polynome([-1]),Sin(self.u.deriver())), self.u.deriver())
 
     def __str__(self):
         return f"cos({self.u})"
