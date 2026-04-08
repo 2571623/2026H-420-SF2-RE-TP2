@@ -10,7 +10,7 @@ class Sin(Expression):
         self.u = u
 
     def evaluer(self, x: float) -> float:
-        return math.cos(self.u.evaluer(x)) * self.u.evaluer(x)
+        return math.sin(self.u.evaluer(x))
     
     def deriver(self) -> Expression:
         return Multiplication(Cos(self.u.deriver()), self.u.deriver())
@@ -26,7 +26,7 @@ class Cos(Expression):
         self.u = u
 
     def evaluer(self, x: float) -> float:
-        return (math.sin(self.u.evaluer(x))* -1) * self.u.evaluer(x)
+        return math.cos(self.u.evaluer(x))
     
     def deriver(self) -> Expression:
         return Multiplication(Multiplication(Sin(self.u.deriver()), -1), self.u.deriver())
@@ -42,7 +42,7 @@ class Exp(Expression):
         self.u = u
 
     def evaluer(self, x: float) -> float:
-        return math.exp(self.u.evaluer(x)) * self.u.evaluer(x)
+        return math.exp(self.u.evaluer(x))
     
     def deriver(self) -> Expression:
         return Multiplication(Exp(self.u.deriver()), self.u.deriver())
